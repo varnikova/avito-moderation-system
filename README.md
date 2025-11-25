@@ -1,6 +1,6 @@
 # Avito Moderation System
 
-Система модерации объявлений для стажерского задания Avito.
+Система модерации объявлений для стажерского [задания](https://github.com/avito-tech/tech-internship/blob/main/Tech%20Internships/Frontend/Frontend-trainee-assignment-autumn-2025/Frontend-trainee-assignment-autumn-2025.md) Avito.
 
 ## Структура проекта
 
