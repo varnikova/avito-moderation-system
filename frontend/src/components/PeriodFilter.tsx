@@ -25,7 +25,7 @@ const PERIODS: Array<{ value: StatsParams['period']; label: string }> = [
 // позволяет выбрать сегодня, неделю или месяц
 export function PeriodFilter({ period, onPeriodChange }: PeriodFilterProps) {
 	return (
-		<div className="rounded-lg border bg-muted/50 p-4">
+		<div className="rounded-lg border bg-[var(--muted)]/50 p-4">
 			<div className="flex flex-wrap items-center gap-3">
 				<Calendar className="h-4 w-4" />
 				<span className="text-sm font-medium">{LABELS.PERIOD}</span>

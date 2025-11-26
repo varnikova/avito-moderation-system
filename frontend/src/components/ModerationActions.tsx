@@ -155,10 +155,10 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 
 
 	return (
-		<div className="space-y-4 rounded-lg bg-card p-6">
+		<div className="space-y-4 rounded-lg bg-[var(--card)] p-6">
 			<div className="flex flex-wrap justify-end gap-3">
 				<Button
-					className="bg-green-600 dark:bg-green-700 text-white hover:bg-green-700 dark:hover:bg-green-800"
+					variant="success"
 					onClick={handleApprove}
 					disabled={approveMutation.isPending}
 				>
@@ -177,8 +177,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 				>
 					<DialogTrigger asChild>
 						<Button
-							variant="outline"
-							className="border-red-500 dark:border-red-600 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+							variant="destructive"
 						>
 							<X className="mr-2 h-4 w-4" aria-hidden="true" />
 							{LABELS.REJECT}
@@ -186,7 +185,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 					</DialogTrigger>
 					<DialogContent className="sm:max-w-2xl">
 						<DialogHeader>
-							<DialogTitle className="text-red-600 dark:text-red-400">
+							<DialogTitle className="text-[var(--destructive)]">
 								{LABELS.REJECT_TITLE}
 							</DialogTitle>
 						</DialogHeader>
@@ -195,7 +194,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 							onSubmit={rejectForm.handleSubmit(handleRejectSubmit)}
 						>
 							<div className="space-y-3">
-								<p className="text-sm font-medium text-foreground">
+								<p className="text-sm font-medium text-[var(--foreground)]">
 									{LABELS.REASON_TITLE}
 								</p>
 								<Controller
@@ -217,7 +216,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 													<div key={reason.value} className="space-y-2">
 														<div className="flex items-center gap-2">
 															<RadioGroupItem value={reason.value} id={`reject-${reason.value}`} />
-															<Label htmlFor={`reject-${reason.value}`} className="text-sm text-foreground">
+															<Label htmlFor={`reject-${reason.value}`} className="text-sm text-[var(--foreground)]">
 																{reason.label}
 															</Label>
 														</div>
@@ -241,18 +240,18 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 									)}
 								/>
 								{rejectForm.formState.errors.reason && (
-									<p className="text-sm text-red-600 dark:text-red-400">
+									<p className="text-sm text-[var(--destructive)]">
 										{rejectForm.formState.errors.reason.message}
 									</p>
 								)}
 								{rejectForm.formState.errors.otherReason && (
-									<p className="text-sm text-red-600 dark:text-red-400">
+									<p className="text-sm text-[var(--destructive)]">
 										{rejectForm.formState.errors.otherReason.message}
 									</p>
 								)}
 							</div>
 							<div className="space-y-2">
-								<p className="text-sm font-medium text-foreground">
+								<p className="text-sm font-medium text-[var(--foreground)]">
 									{LABELS.COMMENT_LABEL}
 								</p>
 								<Textarea
@@ -263,7 +262,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 							<DialogFooter>
 								<Button
 									type="submit"
-									className="bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 dark:hover:bg-red-800"
+									variant="destructive"
 									disabled={rejectMutation.isPending}
 								>
 									{LABELS.REJECT_SUBMIT}
@@ -283,7 +282,7 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 					}}
 				>
 					<DialogTrigger asChild>
-						<Button className="bg-yellow-400 dark:bg-yellow-600 text-slate-900 dark:text-slate-100 hover:bg-yellow-500 dark:hover:bg-yellow-700">
+						<Button variant="warning">
 							<RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
 							{LABELS.REQUEST_CHANGES}
 						</Button>
@@ -307,14 +306,14 @@ export function ModerationActions({ adId }: ModerationActionsProps) {
 								})}
 							/>
 							{requestForm.formState.errors.comment && (
-								<p className="text-sm text-red-600 dark:text-red-400">
+								<p className="text-sm text-[var(--destructive)]">
 									{requestForm.formState.errors.comment.message}
 								</p>
 							)}
 							<DialogFooter>
 								<Button
 									type="submit"
-									className="bg-yellow-500 dark:bg-yellow-600 text-slate-900 dark:text-slate-100 hover:bg-yellow-600 dark:hover:bg-yellow-700"
+									variant="warning"
 									disabled={requestChangesMutation.isPending}
 								>
 									{LABELS.REQUEST_SUBMIT}

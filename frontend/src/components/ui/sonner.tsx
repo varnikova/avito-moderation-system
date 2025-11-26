@@ -26,10 +26,10 @@ const Toaster = ({ ...props }: ToasterProps): React.ReactElement => {
           toast:
             "border shadow-lg",
           success:
-            "!bg-green-50 dark:!bg-green-900/20 !text-green-900 dark:!text-green-100 !border-green-200 dark:!border-green-700",
+            "bg-[var(--success-bg)] text-[var(--success)] border-[var(--success-border)]",
           error:
-            "!bg-red-50 dark:!bg-red-900/20 !text-red-900 dark:!text-red-100 !border-red-200 dark:!border-red-700",
-          description: "text-muted-foreground",
+            "bg-[var(--destructive)]/10 text-[var(--destructive)] border-[var(--destructive)]",
+          description: "text-[var(--muted-foreground)]",
         },
       }}
       {...props}

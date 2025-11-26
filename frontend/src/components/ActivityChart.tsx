@@ -21,9 +21,9 @@ function formatChartDate(dateString: string): string {
 export function ActivityChart({ data }: ActivityChartProps) {
 	if (!data || data.length === 0) {
 		return (
-			<div className="rounded-lg border bg-card p-6">
+			<div className="rounded-lg border bg-[var(--card)] p-6">
 				<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
-				<p className="text-sm text-muted-foreground">Нет данных для отображения</p>
+				<p className="text-sm text-[var(--muted-foreground)]">Нет данных для отображения</p>
 			</div>
 		)
 	}
@@ -35,13 +35,13 @@ export function ActivityChart({ data }: ActivityChartProps) {
 	}))
 
 	return (
-		<div className="rounded-lg border bg-card p-6">
-			<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
+		<div className="rounded-lg border bg-[var(--card)] p-6">
+			<h3 className="mb-4 text-lg font-semibold text-[var(--foreground)]">{LABELS.TITLE}</h3>
 			<ResponsiveContainer width="100%" height={300}>
 				<BarChart data={chartData}>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="dateFormatted" />
-					<YAxis />
+					<CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+					<XAxis dataKey="dateFormatted" tick={{ fill: 'var(--muted-foreground)' }} />
+					<YAxis tick={{ fill: 'var(--muted-foreground)' }} />
 					<Tooltip />
 					<Bar dataKey="approved" stackId="a" fill="#22c55e" />
 					<Bar dataKey="rejected" stackId="a" fill="#ef4444" />

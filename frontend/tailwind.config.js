@@ -32,6 +32,20 @@ export default {
 					DEFAULT: 'var(--destructive)',
 					foreground: 'var(--destructive-foreground)',
 				},
+				success: {
+					DEFAULT: 'var(--success)',
+					foreground: 'var(--success-foreground)',
+					bg: 'var(--success-bg)',
+					border: 'var(--success-border)',
+					'chip-bg': 'var(--success-chip-bg)',
+				},
+				warning: {
+					DEFAULT: 'var(--warning)',
+					foreground: 'var(--warning-foreground)',
+					bg: 'var(--warning-bg)',
+					border: 'var(--warning-border)',
+					'chip-bg': 'var(--warning-chip-bg)',
+				},
 				muted: {
 					DEFAULT: 'var(--muted)',
 					foreground: 'var(--muted-foreground)',

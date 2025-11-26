@@ -10,7 +10,7 @@ import { AdsPagination } from '@/components/AdsPagination'
 import type { AdsQueryParams, AdStatus } from '@/types'
 
 const LABELS = {
-	TITLE: 'Список объявлений',
+	PAGE_TITLE: 'Список объявлений',
 	ERROR_MESSAGE: 'Не удалось загрузить список объявлений',
 	EMPTY_TITLE: 'Объявлений не найдено',
 	EMPTY_DESCRIPTION: 'Попробуйте изменить фильтры или создайте новое объявление',
@@ -219,7 +219,7 @@ export default function AdsListPage() {
 						totalPages={totalPages}
 						onPageChange={handlePageChange}
 					/>
-					<p className="text-sm text-muted-foreground">
+					<p className="text-sm text-[var(--muted-foreground)]">
 						{LABELS.TOTAL_PREFIX} {totalItems} {getTotalLabel(totalItems)}
 					</p>
 				</div>
@@ -228,11 +228,8 @@ export default function AdsListPage() {
 	}
 
 	return (
-		<div className="container mx-auto py-8">
-			<div className="mb-6">
-				<h1 className="text-3xl font-bold">{LABELS.TITLE}</h1>
-			</div>
-
+		<div className="container mx-auto space-y-6 py-8">
+			<h1 className="text-3xl font-bold">{LABELS.PAGE_TITLE}</h1>
 			<div className="mb-6">
 				<AdsFilters 
 					onFilterChange={handleFilterChange}

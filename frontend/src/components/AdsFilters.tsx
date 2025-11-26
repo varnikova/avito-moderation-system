@@ -35,7 +35,6 @@ const STATUS_OPTIONS: { value: AdStatus; label: string }[] = [
 ]
 
 const LABELS = {
-	TITLE: 'Фильтры:',
 	STATUS: 'Статус',
 	CATEGORY: 'Категория',
 	PRICE: 'Цена',
@@ -168,11 +167,7 @@ export function AdsFilters({ onFilterChange, initialValues }: AdsFiltersProps) {
 	}
 
 	return (
-		<div className="rounded-lg border border-yellow-700 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20 p-6">
-			<div className="mb-4">
-				<h2 className="text-lg font-semibold">{LABELS.TITLE}</h2>
-			</div>
-
+		<div className="rounded-lg border border-[var(--border)] bg-[var(--muted)] p-6">
 			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 				<div>
 					<label className="mb-2 block text-sm font-medium">

@@ -11,8 +11,8 @@ export function StatCard({ label, value }: StatCardProps) {
 		<Card>
 			<CardContent className="p-6">
 				<div className="space-y-2">
-					<p className="text-sm font-medium text-muted-foreground">{label}</p>
-					<p className="text-3xl font-bold text-foreground">{value}</p>
+					<p className="text-sm font-medium text-[var(--muted-foreground)]">{label}</p>
+					<p className="text-3xl font-bold text-[var(--foreground)]">{value}</p>
 				</div>
 			</CardContent>
 		</Card>

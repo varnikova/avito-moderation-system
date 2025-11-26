@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, ArrowLeft, Star } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -18,6 +18,7 @@ import { ErrorMessage } from '@/components/ErrorMessage'
 import { ModerationActions } from '@/components/ModerationActions'
 import { ModerationHistory } from '@/components/ModerationHistory'
 import { ImageGallery } from '@/components/ImageGallery'
+import { PriorityIndicator } from '@/components/PriorityIndicator'
 import { useAdById, useAds } from '@/hooks/useAds'
 import { getItemRoute } from '@/lib/utils'
 import { formatDate, formatDateTime, formatPrice } from '@/lib/utils'
@@ -44,10 +45,10 @@ const LABELS = {
 }
 
 const statusBadgeStyles: Record<AdStatus, string> = {
-	pending: 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 text-amber-900 dark:text-amber-100',
-	approved: 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-900 dark:text-green-100',
-	rejected: 'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-100',
-	draft: 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100',
+	pending: 'border-[var(--warning-border)] bg-[var(--warning-chip-bg)] text-[var(--warning)]',
+	approved: 'border-[var(--success-border)] bg-[var(--success-chip-bg)] text-[var(--success)]',
+	rejected: 'border-[var(--destructive)] bg-[var(--destructive)]/10 text-[var(--destructive)]',
+	draft: 'border-[var(--border)] bg-[var(--muted)] text-[var(--muted-foreground)]',
 }
 
 export default function AdDetailPage() {
@@ -59,9 +60,9 @@ export default function AdDetailPage() {
 	const isValidId = Number.isInteger(numericId) && numericId > 0
 
 	const { data: ad, isLoading, error, refetch } = useAdById(isValidId ? numericId : 0)
-	// загружаем все объявления для навигации предыдущее/следующее
-	// TODO: можно оптимизировать - загружать только ид соседних объявлений
-	const { data: adsData } = useAds({ limit: 1000 })
+	// загружаем объявления для навигации предыдущее/следующее
+	// ограничиваем до 100 для оптимизации (достаточно для большинства случаев)
+	const { data: adsData } = useAds({ limit: 100 })
 
 	const galleryImages = ad?.images && ad.images.length > 0 ? ad.images : []
 	const characteristics = ad?.characteristics ? Object.entries(ad.characteristics) : []
@@ -128,9 +129,9 @@ export default function AdDetailPage() {
 				<Button
 					variant="ghost"
 					onClick={handleBackClick}
-					className="px-0 text-base font-medium hover:text-[var(--accent)] hover:bg-transparent"
+					className="px-0 text-base font-medium"
 				>
-					<ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
+					<ChevronLeft className="mr-2 h-4 w-4" aria-hidden="true" />
 					{LABELS.BACK_BUTTON}
 				</Button>
 				<div className="flex flex-wrap items-center gap-3">
@@ -138,7 +139,7 @@ export default function AdDetailPage() {
 						variant="ghost"
 						onClick={handlePrevClick}
 						disabled={!prevAdId}
-						className="px-0 text-sm font-medium hover:text-[var(--accent)] hover:bg-transparent"
+						className="px-0 text-sm font-medium"
 					>
 						<ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
 						Предыдущее
@@ -148,7 +149,7 @@ export default function AdDetailPage() {
 						variant="ghost"
 						onClick={handleNextClick}
 						disabled={!nextAdId}
-						className="px-0 text-sm font-medium hover:text-[var(--accent)] hover:bg-transparent"
+						className="px-0 text-sm font-medium"
 					>
 						Следующее
 						<ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
@@ -156,16 +157,26 @@ export default function AdDetailPage() {
 				</div>
 			</div>
 
+			<div className="flex flex-wrap items-center justify-between gap-3">
+				<h1 className="text-xl font-semibold text-[var(--foreground)]">
+					{ad.title}{' '}
+					<span className="text-sm text-[var(--muted-foreground)]">
+						({LABELS.ID_LABEL} {ad.id})
+					</span>
+				</h1>
+				<div className="flex flex-wrap items-center gap-3 text-sm text-[var(--muted-foreground)]">
+					<span>{LABELS.STATUS_LABEL}</span>
+					<Badge variant="outline" className={statusBadgeStyles[ad.status]}>
+						{STATUS_LABELS[ad.status]}
+					</Badge>
+					<PriorityIndicator priority={ad.priority} />
+				</div>
+			</div>
+
 			<div className="grid gap-6 lg:grid-cols-2">
 				<div className="flex flex-col justify-evenly space-y-6">
 					<Card>
 						<CardContent className="flex h-full flex-col gap-4 p-6">
-							<div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-								<span>{LABELS.STATUS_LABEL}</span>
-								<Badge variant="outline" className={statusBadgeStyles[ad.status]}>
-									{STATUS_LABELS[ad.status]}
-								</Badge>
-							</div>
 							<ImageGallery images={galleryImages} title={ad.title} />
 						</CardContent>
 					</Card>
@@ -173,21 +184,21 @@ export default function AdDetailPage() {
 					<Card>
 						<CardContent className="space-y-3 p-6">
 							<div className="flex flex-wrap items-center gap-4 text-sm">
-								<span className="text-base font-semibold text-foreground">
+								<span className="text-base font-semibold text-[var(--foreground)]">
 									{ad.seller.name}{' '}
-									<span className="text-sm text-muted-foreground">({LABELS.ID_LABEL} {ad.seller.id})</span>
+									<span className="text-sm text-[var(--muted-foreground)]">({LABELS.ID_LABEL} {ad.seller.id})</span>
 								</span>
 								<Separator orientation="vertical" className="h-4 w-[1px]" decorative={false} style={{ backgroundColor: 'var(--border)' }} />
-								<span className="flex items-center gap-1 font-medium text-foreground">
-									<Star className="h-4 w-4 text-amber-500" aria-hidden="true" />
+								<span className="flex items-center gap-1 font-medium text-[var(--foreground)]">
+									<Star className="h-4 w-4 text-[var(--warning)]" aria-hidden="true" />
 									{ad.seller.rating}
 								</span>
 								<Separator orientation="vertical" className="h-4 w-[1px]" decorative={false} style={{ backgroundColor: 'var(--border)' }} />
-								<span className="text-muted-foreground whitespace-nowrap">
+								<span className="text-[var(--muted-foreground)] whitespace-nowrap">
 									{ad.seller.totalAds} {LABELS.SELLER_LISTINGS_SUFFIX}
 								</span>
 								<Separator orientation="vertical" className="h-4 w-[1px]" decorative={false} style={{ backgroundColor: 'var(--border)' }} />
-								<span className="text-muted-foreground whitespace-nowrap">
+								<span className="text-[var(--muted-foreground)] whitespace-nowrap">
 									{LABELS.SELLER_REGISTERED}: {formatDate(ad.seller.registeredAt)}
 								</span>
 							</div>
@@ -197,19 +208,18 @@ export default function AdDetailPage() {
 
 				<Card className="h-full">
 					<CardContent className="flex h-full flex-col gap-6 p-6">
-						<div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+						<div className="flex flex-wrap items-center gap-3 text-sm text-[var(--muted-foreground)]">
 							<span>{LABELS.CATEGORY_LABEL} {ad.category}</span>
 							<Separator orientation="vertical" className="h-4 w-[1px]" decorative={false} style={{ backgroundColor: 'var(--border)' }} />
 							<span>{LABELS.CREATED_LABEL} {formatDateTime(ad.createdAt)}</span>
 							<Separator orientation="vertical" className="h-4 w-[1px]" decorative={false} style={{ backgroundColor: 'var(--border)' }} />
 							<span>{LABELS.PRICE_LABEL} {formatPrice(ad.price)}</span>
 						</div>
-						<h2 className="text-2xl font-semibold text-foreground">{ad.title}</h2>
-						<p className="text-base leading-relaxed text-foreground">{ad.description}</p>
+						<p className="text-base leading-relaxed text-[var(--foreground)]">{ad.description}</p>
 						<div>
 							<h3 className="mb-3 text-lg font-semibold">{LABELS.CHARACTERISTICS_TITLE}</h3>
 							{characteristics.length === 0 ? (
-								<p className="text-sm text-muted-foreground">{LABELS.NO_CHARACTERISTICS}</p>
+								<p className="text-sm text-[var(--muted-foreground)]">{LABELS.NO_CHARACTERISTICS}</p>
 							) : (
 								<Table>
 									<TableHeader>

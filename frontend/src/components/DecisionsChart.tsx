@@ -26,9 +26,9 @@ export function DecisionsChart({ data }: DecisionsChartProps) {
 
 	if (total === 0) {
 		return (
-			<div className="rounded-lg border bg-card p-6">
+			<div className="rounded-lg border bg-[var(--card)] p-6">
 				<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
-				<p className="text-sm text-muted-foreground">{LABELS.NO_DATA}</p>
+				<p className="text-sm text-[var(--muted-foreground)]">{LABELS.NO_DATA}</p>
 			</div>
 		)
 	}
@@ -61,9 +61,9 @@ export function DecisionsChart({ data }: DecisionsChartProps) {
 			const value = data.value
 			const percent = data.payload?.percent ?? 0
 			return (
-				<div className="rounded-lg border bg-background p-2 shadow-md">
-					<p className="font-medium">{data.name}</p>
-					<p className="text-sm text-muted-foreground">
+				<div className="rounded-lg border bg-[var(--card)] p-2 shadow-md">
+					<p className="font-medium text-[var(--foreground)]">{data.name}</p>
+					<p className="text-sm text-[var(--muted-foreground)]">
 						{value} ({Math.round(percent * 100)}%)
 					</p>
 				</div>
@@ -73,8 +73,8 @@ export function DecisionsChart({ data }: DecisionsChartProps) {
 	}
 
 	return (
-		<div className="rounded-lg border bg-card p-6">
-			<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
+		<div className="rounded-lg border bg-[var(--card)] p-6">
+			<h3 className="mb-4 text-lg font-semibold text-[var(--foreground)]">{LABELS.TITLE}</h3>
 			<ResponsiveContainer width="100%" height={300}>
 				<PieChart>
 					<Pie
@@ -92,7 +92,7 @@ export function DecisionsChart({ data }: DecisionsChartProps) {
 						))}
 					</Pie>
 					<Tooltip content={renderTooltip} />
-					<Legend />
+					<Legend wrapperStyle={{ color: 'var(--muted-foreground)' }} />
 				</PieChart>
 			</ResponsiveContainer>
 		</div>

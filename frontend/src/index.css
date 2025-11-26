@@ -2,7 +2,8 @@
 
 @layer base {
 	:root {
-		--background: #ffffff;
+		/* Светлая тема: лёгкий контраст между фоном и карточками/поповерами */
+		--background: #f8fafc;
 		--foreground: #0a0e27;
 		--card: #ffffff;
 		--card-foreground: #0a0e27;
@@ -14,22 +15,37 @@
 		--secondary-foreground: #0f172a;
 		--muted: #f1f5f9;
 		--muted-foreground: #64748b;
-		--accent: #61adf5;
+		--accent: #91abc4;
 		--accent-foreground: #0f172a;
 		--destructive: #ef4444;
 		--destructive-foreground: #f8fafc;
-		--border: #e2e8f0;
+		--success: #22c55e;
+		--success-foreground: #ffffff;
+		--success-bg: #dcfce7;
+		--success-border: #16a34a;
+		/* Плотный фон для маленьких чипов-статусов */
+		--success-chip-bg: #bbf7d0;
+		--warning: #f59e0b;
+		--warning-foreground: #ffffff;
+		--warning-bg: #fef3c7;
+		--warning-border: #d97706;
+		/* Плотный фон для чипов предупреждений */
+		--warning-chip-bg: #fed7aa;
+		--border:   #cbd5e1;
+		--card-border: #e2e8f0;
+		--filter-border: #d97706;
 		--input: #e2e8f0;
 		--ring: #0a0e27;
 		--radius: 0.5rem;
 	}
 
 	.dark {
-		--background: #0a0e27;
+		/* Тёмная тема: фон чуть темнее, карточки/поповеры чуть светлее */
+		--background: #020617;
 		--foreground: #f8fafc;
-		--card: #0a0e27;
+		--card: #020617;
 		--card-foreground: #f8fafc;
-		--popover: #0a0e27;
+		--popover: #0f172a;
 		--popover-foreground: #f8fafc;
 		--primary: #f8fafc;
 		--primary-foreground: #0f172a;
@@ -37,11 +53,27 @@
 		--secondary-foreground: #f8fafc;
 		--muted: #1e293b;
 		--muted-foreground: #94a3b8;
-		--accent: #1e293b;
-		--accent-foreground: #f8fafc;
+		--accent: #94a3b8;
+		--accent-foreground: #0f172a;
 		--destructive: #dc2626;
 		--destructive-foreground: #f8fafc;
-		--border: #1e293b;
+		--success: #16a34a;
+		--success-foreground: #ffffff;
+		/* Мягкий фон для больших блоков */
+		--success-bg: rgba(22, 163, 74, 0.35);
+		--success-border: #16a34a;
+		/* Плотный фон для чипов-статусов */
+		--success-chip-bg: #14532d;
+		--warning: #d97706;
+		--warning-foreground: #ffffff;
+		/* Мягкий фон для больших блоков */
+		--warning-bg: rgba(217, 119, 6, 0.35);
+		--warning-border: #facc15;
+		/* Плотный фон для чипов-статусов */
+		--warning-chip-bg: #78350f;
+		--border:  #1e293b;
+		--card-border: #1e293b;
+		--filter-border: #fde68a;
 		--input: #1e293b;
 		--ring: #cbd5e1;
 	}
@@ -63,8 +95,8 @@
 	}
 	input[type="number"]::-webkit-inner-spin-button,
 	input[type="number"]::-webkit-outer-spin-button {
-		-webkit-appearance: none;
 		appearance: none;
+		-webkit-appearance: none;
 		margin: 0;
 	}
 	[role="option"]:hover {

@@ -19,10 +19,10 @@ const LABELS = {
 }
 
 const statusBadgeStyles: Record<AdStatus, string> = {
-	pending: 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 text-amber-900 dark:text-amber-100',
-	approved: 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-900 dark:text-green-100',
-	rejected: 'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-100',
-	draft: 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100',
+	pending: 'border-[var(--warning-border)] bg-[var(--warning-chip-bg)] text-[var(--warning)]',
+	approved: 'border-[var(--success-border)] bg-[var(--success-chip-bg)] text-[var(--success)]',
+	rejected: 'border-[var(--destructive)] bg-[var(--destructive)]/10 text-[var(--destructive)]',
+	draft: 'border-[var(--border)] bg-[var(--muted)] text-[var(--muted-foreground)]',
 }
 
 const ACTION_STATUS_MAP: Record<ModerationHistory['action'], AdStatus> = {
@@ -45,25 +45,25 @@ export function ModerationHistory({ history: rawHistory }: ModerationHistoryProp
 	}, [rawHistory])
 
 	return (
-		<div className="rounded-lg border border-yellow-200 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20 p-6">
+		<div className="rounded-lg border border-[var(--border)] bg-[var(--muted)] p-6">
 			<div className="mb-4 flex items-center justify-between">
 				<h3 className="text-lg font-semibold">{LABELS.TITLE}</h3>
-				<span className="text-sm text-muted-foreground">
+				<span className="text-sm text-[var(--muted-foreground)]">
 					{history.length} {history.length === 1 ? LABELS.HISTORY_SINGLE : LABELS.HISTORY_PLURAL}
 				</span>
 			</div>
 			<div className="space-y-4">
 				{history.length === 0 && (
-					<p className="text-sm text-muted-foreground">{LABELS.NO_HISTORY}</p>
+					<p className="text-sm text-[var(--muted-foreground)]">{LABELS.NO_HISTORY}</p>
 				)}
 				{history.map((entry) => (
-					<div key={entry.id} className="rounded-lg border border-yellow-200 dark:border-yellow-700 bg-white/70 dark:bg-yellow-900/30 p-4">
+					<div key={entry.id} className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-4">
 						<div className="flex flex-wrap items-center justify-between gap-2 text-sm font-medium">
 							<span>
 								{entry.moderatorName}{' '}
-								<span className="text-muted-foreground">({LABELS.ID_LABEL} {entry.moderatorId})</span>
+								<span className="text-[var(--muted-foreground)]">({LABELS.ID_LABEL} {entry.moderatorId})</span>
 							</span>
-							<span className="text-muted-foreground">{formatDateTime(entry.timestamp)}</span>
+							<span className="text-[var(--muted-foreground)]">{formatDateTime(entry.timestamp)}</span>
 						</div>
 						<div className="mt-2 flex items-center gap-2 text-sm">
 							<Badge
@@ -74,12 +74,12 @@ export function ModerationHistory({ history: rawHistory }: ModerationHistoryProp
 							</Badge>
 						</div>
 						{entry.reason && (
-							<p className="mt-1 text-sm text-muted-foreground">
+							<p className="mt-1 text-sm text-[var(--muted-foreground)]">
 								{LABELS.REASON_PREFIX} {entry.reason}
 							</p>
 						)}
 						{entry.comment && (
-							<p className="text-sm text-muted-foreground">
+							<p className="text-sm text-[var(--muted-foreground)]">
 								{LABELS.COMMENT_PREFIX} {entry.comment}
 							</p>
 						)}

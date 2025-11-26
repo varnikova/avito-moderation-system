@@ -15,9 +15,9 @@ const LABELS = {
 export function CategoriesChart({ data }: CategoriesChartProps) {
 	if (!data || Object.keys(data).length === 0) {
 		return (
-			<div className="rounded-lg border bg-card p-6">
+			<div className="rounded-lg border bg-[var(--card)] p-6">
 				<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
-				<p className="text-sm text-muted-foreground">{LABELS.NO_DATA}</p>
+				<p className="text-sm text-[var(--muted-foreground)]">{LABELS.NO_DATA}</p>
 			</div>
 		)
 	}
@@ -29,13 +29,13 @@ export function CategoriesChart({ data }: CategoriesChartProps) {
 	}))
 
 	return (
-		<div className="rounded-lg border bg-card p-6">
-			<h3 className="mb-4 text-lg font-semibold">{LABELS.TITLE}</h3>
+		<div className="rounded-lg border bg-[var(--card)] p-6">
+			<h3 className="mb-4 text-lg font-semibold text-[var(--foreground)]">{LABELS.TITLE}</h3>
 			<ResponsiveContainer width="100%" height={300}>
 				<BarChart data={chartData} layout="vertical">
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis type="number" />
-					<YAxis dataKey="category" type="category" width={150} />
+					<CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+					<XAxis type="number" tick={{ fill: 'var(--muted-foreground)' }} />
+					<YAxis dataKey="category" type="category" width={150} tick={{ fill: 'var(--muted-foreground)' }} />
 					<Tooltip />
 					<Bar dataKey="count" fill="#3b82f6" />
 				</BarChart>
