@@ -47,3 +47,7 @@ desktop.ini
 *.temp
 .cache/
 
+# Vite cache
+.vite/
+frontend/.vite/
+
